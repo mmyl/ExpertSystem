@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Task Master</title>
+<title>Expert System for IT security risk analysis</title>
 {% endblock %}
 
 {% block body %}
@@ -14,10 +14,10 @@
             <th>Tikėtinumas</th>
         </tr>
     <div class="form">
-        <form action="/update/{{task.id}}" method="POST">
-            <td><input type="text" name="content" id="content"></td>
-            <td><input type="text" name="content" id="content"></td>
-            <td><input type="text" name="content" id="content"></td>            
+        <form action="/update/{{row.id}}" method="POST">
+            <td><input type="text" name="question" id="question" value={{row.question}}></td>
+            <td><input type="number" name="impact" id="impact" min="1" max="5" value={{row.impact}}></td>
+            <td><input type="number" name="likelihood" id="likelihood" value={{row.likelihood}} min="1" max="5"></td>            
             <td><input type="submit" value="Atnaujinti klausimą"></td>
         </form>
     </div>

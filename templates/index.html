@@ -15,16 +15,16 @@
             <th>Įrašymo laikas</th>
             <th>Veiksmas</th>
         </tr>
-        {% for task in tasks %}
+        {% for row in rows %}
             <tr>
-                <td>{{ task.question }}</td>
-                <td>{{ task.impact }}</td>
-                <td>{{ task.likelihood }}</td>
-                <td>{{ task.date_created.date() }}</td>
+                <td>{{ row.question }}</td>
+                <td>{{ row.impact }}</td>
+                <td>{{ row.likelihood }}</td>
+                <td>{{ row.date_created.date() }}</td>
                 <td>
-                    <a href="/delete/{{task.id}}">Ištrinti</a>
+                    <a href="/delete/{{row.id}}">Ištrinti</a>
                     <br>
-                    <a href="/update/{{task.id}}">Atnaujinti</a>
+                    <a href="/update/{{row.id}}">Atnaujinti</a>
                 </td>
             </tr>
         {% endfor %}

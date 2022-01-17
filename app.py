@@ -14,55 +14,57 @@ class Todo(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
-        return '<Task %r>' % self.id
+        return '<Row %r>' % self.id
 
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        task_question = request.form['question']
+        new_question = request.form['question']
         new_impact = request.form['impact']
         new_likelihood = request.form['likelihood']
-        update = Todo(question=task_question, impact=new_impact, likelihood=new_likelihood )
+        update = Todo(question=new_question, impact=new_impact, likelihood=new_likelihood )
 
         try:
             db.session.add(update)
             db.session.commit()
             return redirect('/')
         except:
-            return 'There was an issue adding your task'
+            return 'There was an issue adding your row'
 
     else:
-        tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('index.html', tasks=tasks)
+        rows = Todo.query.order_by(Todo.date_created).all()
+        return render_template('index.html', rows=rows)
 
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    task_to_delete = Todo.query.get_or_404(id)
+    row_to_delete = Todo.query.get_or_404(id)
 
     try:
-        db.session.delete(task_to_delete)
+        db.session.delete(row_to_delete)
         db.session.commit()
         return redirect('/')
     except:
-        return 'There was a problem deleting that task'
+        return 'There was a problem deleting that row'
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    task = Todo.query.get_or_404(id)
+    row = Todo.query.get_or_404(id)
 
     if request.method == 'POST':
-        task.question = request.form['question']
+        row.question = request.form['question']
+        row.impact = request.form['impact']
+        row.likelihood = request.form['likelihood']
 
         try:
             db.session.commit()
             return redirect('/')
         except:
-            return 'There was an issue updating your task'
+            return 'There was an issue updating your row'
 
     else:
-        return render_template('update.html', task=task)
+        return render_template('update.html', row=row)
 
 
 if __name__ == "__main__":
