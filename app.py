@@ -8,7 +8,9 @@ db = SQLAlchemy(app)
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(200), nullable=False)
+    question = db.Column(db.String(200), nullable=False)
+    impact = db.Column(db.Integer, nullable=False)
+    likelihood = db.Column(db.Integer, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -18,11 +20,13 @@ class Todo(db.Model):
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        task_question = request.form['question']
+        new_impact = request.form['impact']
+        new_likelihood = request.form['likelihood']
+        update = Todo(question=task_question, impact=new_impact, likelihood=new_likelihood )
 
         try:
-            db.session.add(new_task)
+            db.session.add(update)
             db.session.commit()
             return redirect('/')
         except:
@@ -49,7 +53,7 @@ def update(id):
     task = Todo.query.get_or_404(id)
 
     if request.method == 'POST':
-        task.content = request.form['content']
+        task.question = request.form['question']
 
         try:
             db.session.commit()

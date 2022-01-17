@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Task Master</title>
+<title>Expert System for IT security risk analysis</title>
 {% endblock %}
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">Klausimų bazė</h1>
-    {% if tasks|length < 1 %}
-    <h4 style="text-align: center">There are no tasks. Create one below!</h4>
-    {% else %}
+    <h1 style="text-align: center">Klausimų bazė</h1>    
     <table>
         <tr>
             <th>Klausimas</th>
@@ -20,9 +17,9 @@
         </tr>
         {% for task in tasks %}
             <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ "" }}</td>
-                <td>{{ "" }}</td>
+                <td>{{ task.question }}</td>
+                <td>{{ task.impact }}</td>
+                <td>{{ task.likelihood }}</td>
                 <td>{{ task.date_created.date() }}</td>
                 <td>
                     <a href="/delete/{{task.id}}">Ištrinti</a>
@@ -34,17 +31,14 @@
         <tr>            
             <div class="form">
                 <form action="/" method="POST">
-                    <td><input type="text" name="content" id="content"></td>
-                    <td><input type="text" name="content" id="content"></td>
-                    <td><input type="text" name="content" id="content"></td>
+                    <td><input type="text" name="question" id="question"></td>
+                    <td><input type="number" name="impact" id="impact" min="1" max="5"></td>
+                    <td><input type="number" name="likelihood" id="likelihood" min="1" max="5"></td>
                     <td></td>
                     <td><input type="submit" value="Pridėti klausimą"></td>
                 </form>
             </div>
         </tr>
-    </table>
-    {% endif %}
-
-   
+    </table>   
 </div>
 {% endblock %}
