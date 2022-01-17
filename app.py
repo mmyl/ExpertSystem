@@ -1,42 +1,65 @@
-from flask import Flask, render_template
-import random, copy
+from flask import Flask, render_template, url_for, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db = SQLAlchemy(app)
 
-original_questions = {
- #Format is 'question':[options]
- 'Taj Mahal':['Agra','New Delhi','Mumbai','Chennai'],
- 'Great Wall of China':['China','Beijing','Shanghai','Tianjin'],
- 'Petra':['Ma\'an Governorate','Amman','Zarqa','Jerash'],
- 'Machu Picchu':['Cuzco Region','Lima','Piura','Tacna'],
- 'Egypt Pyramids':['Giza','Suez','Luxor','Tanta'],
- 'Colosseum':['Rome','Milan','Bari','Bologna'],
- 'Christ the Redeemer':['Rio de Janeiro','Natal','Olinda','Betim']
-}
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(200), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-questions = copy.deepcopy(original_questions)
-
-def shuffle(q):
- """
- This function is for shuffling 
- the dictionary elements.
- """
- selected_keys = []
- i = 0
- while i < len(q):
-  current_selection = random.choice(q.keys())
-  if current_selection not in selected_keys:
-   selected_keys.append(current_selection)
-   i = i+1
- return selected_keys
-
-@app.route('/')
-def quiz():
- questions_shuffled = shuffle(questions)
- for i in questions.keys():
-  random.shuffle(questions[i])
- return render_template('main.html', q = questions_shuffled, o = questions)
+    def __repr__(self):
+        return '<Task %r>' % self.id
 
 
-if __name__ == '__main__':
- app.run(debug=True)
+@app.route('/', methods=['POST', 'GET'])
+def index():
+    if request.method == 'POST':
+        task_content = request.form['content']
+        new_task = Todo(content=task_content)
+
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding your task'
+
+    else:
+        tasks = Todo.query.order_by(Todo.date_created).all()
+        return render_template('index.html', tasks=tasks)
+
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete = Todo.query.get_or_404(id)
+
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that task'
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    task = Todo.query.get_or_404(id)
+
+    if request.method == 'POST':
+        task.content = request.form['content']
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating your task'
+
+    else:
+        return render_template('update.html', task=task)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
