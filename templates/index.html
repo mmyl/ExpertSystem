@@ -13,12 +13,16 @@
     <table>
         <tr>
             <th>Klausimas</th>
-            <th>Įrašimo laikas</th>
+            <th>Poveikis</th>
+            <th>Tikėtinumas</th>
+            <th>Įrašymo laikas</th>
             <th>Veiksmas</th>
         </tr>
         {% for task in tasks %}
             <tr>
                 <td>{{ task.content }}</td>
+                <td>{{ "" }}</td>
+                <td>{{ "" }}</td>
                 <td>{{ task.date_created.date() }}</td>
                 <td>
                     <a href="/delete/{{task.id}}">Ištrinti</a>
@@ -27,14 +31,20 @@
                 </td>
             </tr>
         {% endfor %}
+        <tr>            
+            <div class="form">
+                <form action="/" method="POST">
+                    <td><input type="text" name="content" id="content"></td>
+                    <td><input type="text" name="content" id="content"></td>
+                    <td><input type="text" name="content" id="content"></td>
+                    <td></td>
+                    <td><input type="submit" value="Pridėti klausimą"></td>
+                </form>
+            </div>
+        </tr>
     </table>
     {% endif %}
 
-    <div class="form">
-        <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Pridėti klausimą">
-        </form>
-    </div>
+   
 </div>
 {% endblock %}

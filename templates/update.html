@@ -6,12 +6,19 @@
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">Update Task</h1>
-
+    <h1 style="text-align: center">Redagavimas</h1>
+    <table>
+        <tr>
+            <th>Klausimas</th>
+            <th>Poveikis</th>
+            <th>Tikėtinumas</th>
+        </tr>
     <div class="form">
         <form action="/update/{{task.id}}" method="POST">
-            <input type="text" name="content" id="content" value="{{task.content}}">
-            <input type="submit" value="Update">
+            <td><input type="text" name="content" id="content"></td>
+            <td><input type="text" name="content" id="content"></td>
+            <td><input type="text" name="content" id="content"></td>            
+            <td><input type="submit" value="Atnaujinti klausimą"></td>
         </form>
     </div>
 </div>
