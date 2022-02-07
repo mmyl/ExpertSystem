@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block body %}
+<div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Paramos sistema</a></li>
+      <li><a href="{{ url_for('logout') }}">Atsijungti</a></li>
+    </ul>
+  </div>
 <div class="content">
     <h1 style="text-align: center">Klausimų bazė</h1>    
     <table>
