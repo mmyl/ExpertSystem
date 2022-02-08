@@ -103,7 +103,12 @@ def index():
         rows = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html', rows=rows)
 
-
+@app.route('/survey', methods=['GET'])
+@login_required
+def survey():
+        rows = Todo.query.order_by(Todo.date_created).all()
+        return render_template('survey.html', rows=rows)
+        
 @app.route('/delete/<int:id>')
 @login_required
 def delete(id):
