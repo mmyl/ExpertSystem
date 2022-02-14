@@ -33,12 +33,11 @@ Dashboard
               <tbody>
                 <div class="form">
                     <form action="/update/{{row.id}}" method="POST">
-                        <td><input type="text" name="question" id="question" value={{row.question}}></td>
+                        <td><input type="text" name="question" id="question" value="{{row.question}}"></td>
                         <td><input type="number" name="impact" id="impact" min="1" max="5" value={{row.impact}}></td>
                         <td><input type="number" name="likelihood" id="likelihood" value={{row.likelihood}} min="1" max="5"></td>            
                         <td><input type="submit" value="Atnaujinti klausimą"></td>
                     </form>                    
                 </div>
-                <td>{{ row.question }}</td>
               </tbody>
 {% endblock %}

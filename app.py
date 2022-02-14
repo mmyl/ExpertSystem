@@ -125,12 +125,12 @@ def delete(id):
 @login_required
 def update(id):
     row = Todo.query.get_or_404(id)
-
+    
     if request.method == 'POST':
         row.question = request.form['question']
         row.impact = request.form['impact']
         row.likelihood = request.form['likelihood']
-
+        
         try:
             db.session.commit()
             return redirect('/')
