@@ -1,7 +1,8 @@
 ﻿# Expert System for IT security risk analysis
 
 # TODO
-- Update doesn't return full question
+- Link to Edit page
+- Mandatory fields to add
 - Questionaire page
 - Report page
 - Pyke integration?
