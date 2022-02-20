@@ -103,7 +103,7 @@ def index():
         rows = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html', rows=rows)
 
-@app.route('/survey', methods=['GET'])
+@app.route('/survey', methods=['POST', 'GET'])
 def survey():
         rows = Todo.query.order_by(Todo.date_created).all()
         return render_template('survey.html', rows=rows)

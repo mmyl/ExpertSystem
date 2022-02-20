@@ -1,7 +1,7 @@
 {% extends "bootstrap/base.html" %}
 
 {% block title %}
-Dashboard
+Rezultatai
 {% endblock %}
 
 {% block styles %}
@@ -20,26 +20,14 @@ Dashboard
         </div>
       </div>
     </nav>
-  <h2 class="sub-header">Klausimai</h2>
+  <h2 class="sub-header">Rizikos vertinimas</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Klausimas</th>                  
+                  <th>Slaptazodziai</th>                  
                 </tr>
               </thead>
               <tbody>
-                <form action="/survey" method="POST">
-                {% for row in rows %}
-                <tr>
-                    <td>{{ row.question }}</td>
-                    <tr>
-                    <td><input type="radio" id="true" name = "{{ row.id }}"> Yes <br>
-                      <input type="radio" id= "false" name = "{{ row.id }}"> No </td>
-                    </tr>
-                </tr>
-            {% endfor %}
-            <td><input type="submit" value="Pateikti"></td>
-          </form>
               </tbody>
 {% endblock %}

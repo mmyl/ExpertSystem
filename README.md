@@ -36,7 +36,7 @@ virtualenv --python='C:\Users\AdminUser\AppData\Local\Programs\Python\Python38\p
 
 ## Development
 Set environment variables 
- $env:FLASK_APP="hello"
+ $env:FLASK_APP="app"
  $env:FLASK_ENV="development"
 
 # Questions
