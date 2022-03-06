@@ -17,7 +17,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-class Todo(db.Model):
+class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(200), nullable=False)
     impact = db.Column(db.Integer, nullable=False)
@@ -90,7 +90,7 @@ def index():
         new_question = request.form['question']
         new_impact = request.form['impact']
         new_likelihood = request.form['likelihood']
-        update = Todo(question=new_question, impact=new_impact, likelihood=new_likelihood )
+        update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood )
 
         try:
             db.session.add(update)
@@ -100,18 +100,48 @@ def index():
             return 'There was an issue adding your row'
 
     else:
-        rows = Todo.query.order_by(Todo.date_created).all()
+        rows = Question.query.order_by(Question.date_created).all()
         return render_template('index.html', rows=rows)
 
 @app.route('/survey', methods=['POST', 'GET'])
 def survey():
-        rows = Todo.query.order_by(Todo.date_created).all()
+    if request.method == 'POST':
+        # new_question = request.form['question']
+        # new_impact = request.form['impact']
+        # new_likelihood = request.form['likelihood']
+        # update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood )
+        # answers = request.form.items()
+        
+        for key, value in request.form.items():
+            # print(f"{key} : {value}")
+            row = Question.query.get_or_404(key)
+            print(row)
+
+        # option = request.form['row.id']
+        
+        # print(request.form)
+        # sum = 0
+        # for key, value in request.form.items():
+        #     sum = sum+key
+        #     print(f"{key}")
+        #[('23', 'on'), ('24', 'on'), ('25', 'on'), ('26', 'on'), ('27', 'on'), ('28', 'on')]
+        # print(answers)
+        return redirect('/survey')
+        # try:
+        #     db.session.add(update)
+        #     db.session.commit()
+        #     # return redirect('/')
+        # except:
+        #     return 'There was an issue adding your row'
+
+    else:
+        rows = Question.query.order_by(Question.date_created).all()
         return render_template('survey.html', rows=rows)
         
 @app.route('/delete/<int:id>')
 @login_required
 def delete(id):
-    row_to_delete = Todo.query.get_or_404(id)
+    row_to_delete = Question.query.get_or_404(id)
 
     try:
         db.session.delete(row_to_delete)
@@ -123,7 +153,7 @@ def delete(id):
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def update(id):
-    row = Todo.query.get_or_404(id)
+    row = Question.query.get_or_404(id)
     
     if request.method == 'POST':
         row.question = request.form['question']

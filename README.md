@@ -1,6 +1,7 @@
 ﻿# Expert System for IT security risk analysis
 
 # TODO
+- Gather answers
 - Link to Edit page
 - Admin role and view
 - Mandatory fields to add

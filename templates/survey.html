@@ -29,17 +29,19 @@ Dashboard
                 </tr>
               </thead>
               <tbody>
+                <div class="form">
                 <form action="/survey" method="POST">
                 {% for row in rows %}
                 <tr>
                     <td>{{ row.question }}</td>
                     <tr>
-                    <td><input type="radio" id="true" name = "{{ row.id }}"> Yes <br>
-                      <input type="radio" id= "false" name = "{{ row.id }}"> No </td>
+                    <td><input type="radio" id="true" name = "{{ row.id }}" value = "yes"> Taip <br>
+                      <input type="radio" id="false" name = "{{ row.id }}" value = "no"> Ne </td>
                     </tr>
                 </tr>
-            {% endfor %}
+                {% endfor %}
             <td><input type="submit" value="Pateikti"></td>
           </form>
+        </div>
               </tbody>
 {% endblock %}
