@@ -106,34 +106,14 @@ def index():
 @app.route('/survey', methods=['POST', 'GET'])
 def survey():
     if request.method == 'POST':
-        # new_question = request.form['question']
-        # new_impact = request.form['impact']
-        # new_likelihood = request.form['likelihood']
-        # update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood )
-        # answers = request.form.items()
-        
+        sum = 0
         for key, value in request.form.items():
             # print(f"{key} : {value}")
-            row = Question.query.get_or_404(key)
-            print(row)
-
-        # option = request.form['row.id']
-        
-        # print(request.form)
-        # sum = 0
-        # for key, value in request.form.items():
-        #     sum = sum+key
-        #     print(f"{key}")
-        #[('23', 'on'), ('24', 'on'), ('25', 'on'), ('26', 'on'), ('27', 'on'), ('28', 'on')]
-        # print(answers)
+            if value == "yes" :
+                row = Question.query.get_or_404(key)
+                sum = sum + row.likelihood
+        print(sum)
         return redirect('/survey')
-        # try:
-        #     db.session.add(update)
-        #     db.session.commit()
-        #     # return redirect('/')
-        # except:
-        #     return 'There was an issue adding your row'
-
     else:
         rows = Question.query.order_by(Question.date_created).all()
         return render_template('survey.html', rows=rows)
