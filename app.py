@@ -112,15 +112,17 @@ def survey():
             if value == "yes" :
                 row = Question.query.get_or_404(key)
                 sum = sum + row.likelihood
-        print(sum)
-        return redirect('/results')
+        # print(sum)
+        # return redirect('/results',sum=sum)
+        return redirect(url_for('.results', sum=sum))
     else:
         rows = Question.query.order_by(Question.date_created).all()
         return render_template('survey.html', rows=rows)
 
-@app.route('/results', methods=['POST', 'GET'])
-def results():
-        return render_template('results.html')
+@app.route('/results/<sum>', methods=['POST', 'GET'])
+def results(sum):
+        print(sum)
+        return render_template('results.html', sum=sum)
         
 @app.route('/delete/<int:id>')
 @login_required
