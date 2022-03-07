@@ -129,6 +129,8 @@ def survey():
 @app.route('/results/<sum>', methods=['POST', 'GET'])
 def results(sum):
         print(sum)
+        # https://plotly.com/python/pie-charts/
+        # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
         labels = ["US", "China", "European Union", "Russian Federation", "Brazil", "India",
                   "Rest of World"]
 
