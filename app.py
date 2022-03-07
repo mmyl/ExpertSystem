@@ -7,6 +7,13 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import json
+import pandas as pd
+import plotly
+import plotly.express as px
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
@@ -122,7 +129,26 @@ def survey():
 @app.route('/results/<sum>', methods=['POST', 'GET'])
 def results(sum):
         print(sum)
-        return render_template('results.html', sum=sum)
+        labels = ["US", "China", "European Union", "Russian Federation", "Brazil", "India",
+                  "Rest of World"]
+
+        # Create subplots: use 'domain' type for Pie subplot
+        fig = make_subplots(rows=1, cols=2, specs=[[{'type':'domain'}, {'type':'domain'}]])
+        fig.add_trace(go.Pie(labels=labels, values=[16, 15, 12, 6, 5, 4, 42], name="GHG Emissions"),
+                      1, 1)
+        fig.add_trace(go.Pie(labels=labels, values=[27, 11, 25, 8, 1, 3, 25], name="CO2 Emissions"),
+                      1, 2)
+
+        # Use `hole` to create a donut-like pie chart
+        fig.update_traces(hole=.4, hoverinfo="label+percent+name")
+
+        fig.update_layout(
+            title_text="Rizikos vertinimo atvaizdavimas",
+            # Add annotations in the center of the donut pies.
+            annotations=[dict(text='Chart1', x=0.20, y=0.5, font_size=20, showarrow=False),
+                         dict(text='Chart2', x=0.80, y=0.5, font_size=20, showarrow=False)])
+        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        return render_template('results.html', sum=sum, graphJSON=graphJSON)
         
 @app.route('/delete/<int:id>')
 @login_required

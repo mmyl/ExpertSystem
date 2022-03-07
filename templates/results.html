@@ -21,13 +21,10 @@ Rezultatai
       </div>
     </nav>
   <h2 class="sub-header">Rizikos vertinimas</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Slaptazodziai {{ sum }}</th>                  
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
+              <div id='chart' class='chart'></div>
+                <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+                <script type='text/javascript'>
+                  var graphs = {{graphJSON | safe}};
+                  Plotly.plot('chart',graphs,{});
+                </script>
 {% endblock %}
