@@ -113,10 +113,14 @@ def survey():
                 row = Question.query.get_or_404(key)
                 sum = sum + row.likelihood
         print(sum)
-        return redirect('/survey')
+        return redirect('/results')
     else:
         rows = Question.query.order_by(Question.date_created).all()
         return render_template('survey.html', rows=rows)
+
+@app.route('/results', methods=['POST', 'GET'])
+def results():
+        return render_template('results.html')
         
 @app.route('/delete/<int:id>')
 @login_required
