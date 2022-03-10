@@ -114,12 +114,15 @@ def index():
 def survey():
     if request.method == 'POST':
         sum = 0
+        total = 0
         for key, value in request.form.items():
             # print(f"{key} : {value}")
             if value == "yes" :
                 row = Question.query.get_or_404(key)
                 sum = sum + row.likelihood
-        # print(sum)
+            row = Question.query.get_or_404(key)
+            total = total + row.likelihood
+        print(total)
         # return redirect('/results',sum=sum)
         return redirect(url_for('.results', sum=sum))
     else:
@@ -128,18 +131,15 @@ def survey():
 
 @app.route('/results/<sum>', methods=['POST', 'GET'])
 def results(sum):
-        print(sum)
+        # print(sum)
         # https://plotly.com/python/pie-charts/
         # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
-        labels = ["US", "China", "European Union", "Russian Federation", "Brazil", "India",
-                  "Rest of World"]
+        labels = ["Viso taškų", "Surinkta"]
 
         # Create subplots: use 'domain' type for Pie subplot
-        fig = make_subplots(rows=1, cols=2, specs=[[{'type':'domain'}, {'type':'domain'}]])
-        fig.add_trace(go.Pie(labels=labels, values=[16, 15, 12, 6, 5, 4, 42], name="GHG Emissions"),
+        fig = make_subplots(rows=1, cols=1, specs=[[{'type':'domain'}]])
+        fig.add_trace(go.Pie(labels=labels, values=[42, sum], name="Slaptažodžiai"), #max, max-got 
                       1, 1)
-        fig.add_trace(go.Pie(labels=labels, values=[27, 11, 25, 8, 1, 3, 25], name="CO2 Emissions"),
-                      1, 2)
 
         # Use `hole` to create a donut-like pie chart
         fig.update_traces(hole=.4, hoverinfo="label+percent+name")
@@ -147,8 +147,7 @@ def results(sum):
         fig.update_layout(
             title_text="Rizikos vertinimo atvaizdavimas",
             # Add annotations in the center of the donut pies.
-            annotations=[dict(text='Chart1', x=0.20, y=0.5, font_size=20, showarrow=False),
-                         dict(text='Chart2', x=0.80, y=0.5, font_size=20, showarrow=False)])
+            annotations=[dict(text= sum + "/100", x=0.5, y=0.5, font_size=20, showarrow=False)])
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         return render_template('results.html', sum=sum, graphJSON=graphJSON)
         

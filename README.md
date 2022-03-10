@@ -1,12 +1,12 @@
 ﻿# Expert System for IT security risk analysis
 
 # TODO
-- Gather answers
+<!-- - Gather answers -->
 - Link to Edit page
 - Admin role and view
-- Mandatory fields to add
-- Questionaire page
-- Report page
+- Mandatory fields for input
+<!-- - Questionaire page -->
+<!-- - Report page -->
 - Pyke integration?
 
  <!-- login page -->
