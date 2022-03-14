@@ -53,8 +53,12 @@ Dashboard
                   <form action="/" method="POST">
                       <td><input type="text" name="question" id="question"></td>
                       <td><input type="number" name="impact" id="impact" min="1" max="5" required></td>
-                      <td><input type="number" name="likelihood" id="likelihood" min="1" max="5" required></td>
-                      <td><input type="text" name="category" id="category" required></td>
+                      <td><input type="number" name="likelihood" id="likelihood" min="1" max="5" required></td>                      
+                      <td><select class="form-control" name="category">
+                        {% for each in categories %}
+                        <option value="{{each.category}}">{{each.category}}</option>
+                        {% endfor %}
+                      </select></td>
                       <td></td>
                       <td><input type="submit" value="Pridėti klausimą"></td>
                   </form>

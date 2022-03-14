@@ -32,6 +32,10 @@ class Question(db.Model):
     likelihood = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String(30), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Categories(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(25), nullable=False)
     
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -111,7 +115,8 @@ def index():
 
     else:
         rows = Question.query.order_by(Question.date_created).all()
-        return render_template('index.html', rows=rows)
+        categories = Categories.query.all()
+        return render_template('index.html', rows=rows, categories=categories)
 
 @app.route('/survey', methods=['POST', 'GET'])
 def survey():

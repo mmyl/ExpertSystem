@@ -34,6 +34,15 @@ virtualenv --python='C:\Users\AdminUser\AppData\Local\Programs\Python\Python38\p
 > db.create_all()
 > exit()
 
+<!-- list tables name -->
+db.engine.table_names()
+
+<!-- Insert New Category -->
+>>> from app import Categories
+>>> update = Categories(category='Slaptazodziai')
+>>> db.session.add(update)
+>>> db.session.commit()
+
 
 ## Development
 Set environment variables 
