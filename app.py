@@ -1,3 +1,4 @@
+from unicodedata import category
 from flask import Flask, render_template, url_for, request, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -29,6 +30,7 @@ class Question(db.Model):
     question = db.Column(db.String(200), nullable=False)
     impact = db.Column(db.Integer, nullable=False)
     likelihood = db.Column(db.Integer, nullable=False)
+    category = db.Column(db.String(30), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     
 class User(UserMixin, db.Model):
@@ -97,7 +99,8 @@ def index():
         new_question = request.form['question']
         new_impact = request.form['impact']
         new_likelihood = request.form['likelihood']
-        update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood )
+        new_category = request.form['category']
+        update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood, category=new_category )
 
         try:
             db.session.add(update)
