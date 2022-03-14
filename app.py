@@ -135,7 +135,8 @@ def survey():
         # return redirect('/results',sum=sum)
         return redirect(url_for('.results', sum=sum))
     else:
-        rows = Question.query.order_by(Question.date_created).all()
+        # rows = Question.query.order_by(Question.date_created).all()
+        rows = Question.query.filter(Question.category=="Slaptažodziai")
         return render_template('survey.html', rows=rows)
 
 @app.route('/results/<sum>', methods=['POST', 'GET'])
