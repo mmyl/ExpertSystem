@@ -65,4 +65,17 @@ Dashboard
               </div>
             </tr>
               </tbody>
+              <thead>
+                <tr>
+                  <th>Kategorija</th>
+                  <th>Aprašymas</th>                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for each in categories %}
+                <tr>
+                    <td>{{ each.category }}</td>
+                    <td>{{ each.description }}</td>
+                    {% endfor %}
+              </tbody>
 {% endblock %}

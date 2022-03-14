@@ -39,7 +39,8 @@ db.engine.table_names()
 
 <!-- Insert New Category -->
 >>> from app import Categories
->>> update = Categories(category='Slaptazodziai')
+>>> from app import db
+>>> update = Categories(category='Kopijos', description='Saugumo klausimai susiję su atsarginių kopijų sauga.')
 >>> db.session.add(update)
 >>> db.session.commit()
 
