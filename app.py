@@ -153,6 +153,7 @@ def results(sum):
 
         # Use `hole` to create a donut-like pie chart
         fig.update_traces(hole=.4, hoverinfo="label+percent+name")
+        fig.update_traces(marker=dict(colors=['red', 'green']))
 
         fig.update_layout(
             title_text="Rizikos vertinimo atvaizdavimas",
