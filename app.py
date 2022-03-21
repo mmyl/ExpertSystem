@@ -127,15 +127,14 @@ def survey():
         for key, value in request.form.items():
             if value == "yes" :
                 row = Question.query.get_or_404(key)
-                sum = sum + row.likelihood
+                sum = sum + ( row.likelihood * row.impact )
             row = Question.query.get_or_404(key)
-            total = total + row.likelihood
-        print(total)
+            total = total + ( row.likelihood * row.impact )
         return redirect(url_for('.results', sum=sum, total=total))
     else:
-        select_category = request.args.get('category')
+        selected_category = request.args.get('category')
         # rows = Question.query.order_by(Question.date_created).all()
-        rows = Question.query.filter(Question.category==select_category)
+        rows = Question.query.filter(Question.category==selected_category)
         categories = Categories.query.all()
         return render_template('survey.html', rows=rows, categories=categories)
 
@@ -146,12 +145,11 @@ def results(sum):
         # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
         
         category_total = request.args.get('total')
-        labels = ["Viso taškų", "Surinkta"]
+        labels = ["Rizikos balai", "Surinkta"]
 
         # Create subplots: use 'domain' type for Pie subplot
         fig = make_subplots(rows=1, cols=1, specs=[[{'type':'domain'}]])
-        fig.add_trace(go.Pie(labels=labels, values=[category_total, sum], name="Slaptažodžiai"), #max, max-got 
-                      1, 1)
+        fig.add_trace(go.Pie(labels=labels, values=[int(category_total)-int(sum), sum], name="Slaptažodžiai"), 1, 1)
 
         # Use `hole` to create a donut-like pie chart
         fig.update_traces(hole=.4, hoverinfo="label+percent+name")
