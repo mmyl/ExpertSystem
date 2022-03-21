@@ -131,7 +131,7 @@ def survey():
             row = Question.query.get_or_404(key)
             total = total + row.likelihood
         print(total)
-        return redirect(url_for('.results', sum=sum))
+        return redirect(url_for('.results', sum=sum, total=total))
     else:
         select_category = request.args.get('category')
         # rows = Question.query.order_by(Question.date_created).all()
@@ -144,11 +144,13 @@ def results(sum):
         # print(sum)
         # https://plotly.com/python/pie-charts/
         # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
+        
+        category_total = request.args.get('total')
         labels = ["Viso taškų", "Surinkta"]
 
         # Create subplots: use 'domain' type for Pie subplot
         fig = make_subplots(rows=1, cols=1, specs=[[{'type':'domain'}]])
-        fig.add_trace(go.Pie(labels=labels, values=[42, sum], name="Slaptažodžiai"), #max, max-got 
+        fig.add_trace(go.Pie(labels=labels, values=[category_total, sum], name="Slaptažodžiai"), #max, max-got 
                       1, 1)
 
         # Use `hole` to create a donut-like pie chart
@@ -158,7 +160,7 @@ def results(sum):
         fig.update_layout(
             title_text="Rizikos vertinimo atvaizdavimas",
             # Add annotations in the center of the donut pies.
-            annotations=[dict(text= sum + "/100", x=0.5, y=0.5, font_size=20, showarrow=False)])
+            annotations=[dict(text= sum + "/" + category_total, x=0.5, y=0.5, font_size=20, showarrow=False)])
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         categories = Categories.query.all()
         return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories)
