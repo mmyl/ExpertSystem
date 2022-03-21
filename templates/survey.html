@@ -14,7 +14,10 @@ Dashboard
       <div class="container-fluid">
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('survey') }}">Paramos sistema</a></li>
+            {% for each in categories %}
+            <li><a href="{{ url_for('survey',category=each.category) }}">{{each.category}}</a></li>
+            {% endfor %}
+            <li><a href="{{ url_for('index') }}">Klausimų bazė</a></li>
             <li><a href="{{ url_for('logout') }}">Atsijungti</a></li>
           </ul>
         </div>

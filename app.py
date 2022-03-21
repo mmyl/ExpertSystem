@@ -125,19 +125,19 @@ def survey():
         sum = 0
         total = 0
         for key, value in request.form.items():
-            # print(f"{key} : {value}")
             if value == "yes" :
                 row = Question.query.get_or_404(key)
                 sum = sum + row.likelihood
             row = Question.query.get_or_404(key)
             total = total + row.likelihood
         print(total)
-        # return redirect('/results',sum=sum)
         return redirect(url_for('.results', sum=sum))
     else:
+        select_category = request.args.get('category')
         # rows = Question.query.order_by(Question.date_created).all()
-        rows = Question.query.filter(Question.category=="Slaptažodziai")
-        return render_template('survey.html', rows=rows)
+        rows = Question.query.filter(Question.category==select_category)
+        categories = Categories.query.all()
+        return render_template('survey.html', rows=rows, categories=categories)
 
 @app.route('/results/<sum>', methods=['POST', 'GET'])
 def results(sum):
@@ -160,7 +160,8 @@ def results(sum):
             # Add annotations in the center of the donut pies.
             annotations=[dict(text= sum + "/100", x=0.5, y=0.5, font_size=20, showarrow=False)])
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-        return render_template('results.html', sum=sum, graphJSON=graphJSON)
+        categories = Categories.query.all()
+        return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories)
         
 @app.route('/delete/<int:id>')
 @login_required
@@ -191,7 +192,8 @@ def update(id):
             return 'There was an issue updating your row'
 
     else:
-        return render_template('update.html', row=row)
+        categories = Categories.query.all()
+        return render_template('update.html', row=row, categories=categories)
 
 
 if __name__ == "__main__":

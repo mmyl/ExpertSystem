@@ -10,16 +10,19 @@ Rezultatai
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('survey') }}">Paramos sistema</a></li>
-            <li><a href="{{ url_for('logout') }}">Atsijungti</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {% for each in categories %}
+        <li><a href="{{ url_for('survey',category=each.category) }}">{{each.category}}</a></li>
+        {% endfor %}
+        <li><a href="{{ url_for('index') }}">Klausimų bazė</a></li>
+        <li><a href="{{ url_for('logout') }}">Atsijungti</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
   <h2 class="sub-header">Rizikos vertinimas</h2>
               <div id='chart' class='chart'></div>
                 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
