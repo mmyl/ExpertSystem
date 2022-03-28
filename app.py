@@ -27,6 +27,7 @@ login_manager.login_view = 'login'
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    # question_id = db.Column(db.String(10), nullable=False)
     question = db.Column(db.String(200), nullable=False)
     impact = db.Column(db.Integer, nullable=False)
     likelihood = db.Column(db.Integer, nullable=False)
@@ -104,6 +105,9 @@ def index():
         new_impact = request.form['impact']
         new_likelihood = request.form['likelihood']
         new_category = request.form['category']
+        
+        max_id = db.session.query(Question.id).order_by(Question.id.desc()).first()
+        max_id[0]
         update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood, category=new_category )
 
         try:
@@ -132,6 +136,11 @@ def survey():
         return redirect(url_for('.results', sum=sum, total=total))
     else:
         selected_category = request.args.get('category')
+        # new_question_id = new_category[0:4]
+        # row_to_delete = Question.query.get_or_404(id)
+        # print(Question.query(max(Question.id)))
+        # print(db.session.query(Question.id).order_by(Question.id.desc()).first())
+
         rows = Question.query.filter(Question.category==selected_category)
         categories = Categories.query.all()
         return render_template('survey.html', rows=rows, categories=categories)
