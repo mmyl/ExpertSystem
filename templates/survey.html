@@ -38,8 +38,8 @@ Dashboard
                 <tr>
                     <td>{{ row.question }}</td>
                     <tr>
-                    <td><input type="radio" id="true" name = "{{ row.id }}" value = "yes"> Taip <br>
-                      <input type="radio" id="false" name = "{{ row.id }}" value = "no"> Ne </td>
+                    <td><input type="radio" id="true" name = "{{ row.id }}" value = "yes" required> Taip <br>
+                      <input type="radio" id="false" name = "{{ row.id }}" value = "no" required> Ne </td>
                     </tr>
                 </tr>
                 {% endfor %}

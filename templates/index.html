@@ -80,5 +80,6 @@ Dashboard
                     <td>{{ each.category }}</td>
                     <td>{{ each.description }}</td>
                     {% endfor %}
-              </tbody>
+              </tbody>              
+                <img src="{{url_for('static', filename='risk_matrix.png')}}", valign="bottom" />
 {% endblock %}
