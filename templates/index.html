@@ -32,6 +32,7 @@ Dashboard
                   <th>Poveikis</th>
                   <th>Tikėtinumas</th>
                   <th>Kategorija</th>
+                  <th>Klausimo Id</th>
                   <th>Įrašymo laikas</th>
                   <th>Veiksmas</th>
                 </tr>
@@ -43,6 +44,7 @@ Dashboard
                     <td>{{ row.impact }}</td>
                     <td>{{ row.likelihood }}</td>
                     <td>{{ row.category }}</td>
+                    <td>{{ row.question_id }}</td>
                     <td>{{ row.date_created.date() }}</td>
                     <td>
                         <a href="/delete/{{row.id}}">Ištrinti</a>

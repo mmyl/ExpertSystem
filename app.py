@@ -18,7 +18,7 @@ import plotly.express as px
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///master.db'
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -27,7 +27,7 @@ login_manager.login_view = 'login'
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # question_id = db.Column(db.String(10), nullable=False)
+    question_id = db.Column(db.String(10), nullable=False)
     question = db.Column(db.String(200), nullable=False)
     impact = db.Column(db.Integer, nullable=False)
     likelihood = db.Column(db.Integer, nullable=False)
@@ -105,10 +105,13 @@ def index():
         new_impact = request.form['impact']
         new_likelihood = request.form['likelihood']
         new_category = request.form['category']
-        
+        # Get max id
         max_id = db.session.query(Question.id).order_by(Question.id.desc()).first()
-        max_id[0]
-        update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood, category=new_category )
+        if max_id == None:
+            max_id = [0]
+        new_question_id = new_category[0:4] + str(max_id[0])
+        print(new_question_id)
+        update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood, category=new_category, question_id=new_question_id)
 
         try:
             db.session.add(update)

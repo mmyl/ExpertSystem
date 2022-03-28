@@ -2,7 +2,6 @@
 
 # TODO
 - Pyke integration
-	- 
 - Admin role and view
 <!-- - Link without login -->
 <!-- - Mandatory fields for input -->
@@ -47,6 +46,8 @@ db.engine.table_names()
 >>> db.session.add(update)
 >>> db.session.commit()
 
+update = Categories(category='BDAR', description='Saugumo klausimai susiję su Bendruoju Duomenų Apsaugos Reglamentu.')
+update = Categories(category='Slaptažodžiai', description='Saugumo klausimai susiję su slaptažodžių sauga.')
 
 ## Development
 Set environment variables 
