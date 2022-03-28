@@ -73,9 +73,8 @@ def login():
                 return redirect(url_for('index'))
 
         return '<h1>Invalid username or password</h1>'
-        #return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>'
-
-    return render_template('login.html', form=form)
+    categories = Categories.query.all()
+    return render_template('login.html', form=form, categories=categories)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -133,14 +132,12 @@ def survey():
         return redirect(url_for('.results', sum=sum, total=total))
     else:
         selected_category = request.args.get('category')
-        # rows = Question.query.order_by(Question.date_created).all()
         rows = Question.query.filter(Question.category==selected_category)
         categories = Categories.query.all()
         return render_template('survey.html', rows=rows, categories=categories)
 
 @app.route('/results/<sum>', methods=['POST', 'GET'])
 def results(sum):
-        # print(sum)
         # https://plotly.com/python/pie-charts/
         # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
         
