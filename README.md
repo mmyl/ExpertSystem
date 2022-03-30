@@ -2,7 +2,7 @@
 
 # TODO
 - Pyke integration
-- Admin role and view
+<!-- Removed! Admin role and view-->
 <!-- - Link without login -->
 <!-- - Mandatory fields for input -->
 <!-- - Link to Edit page -->
