@@ -17,7 +17,7 @@ Dashboard
             {% for each in categories %}
             <li><a href="{{ url_for('survey',category=each.category) }}">{{each.category}}</a></li>
             {% endfor %}
-            <li><a href="{{ url_for('index') }}">Klausimų bazė</a></li>
+            <li><a href="{{ url_for('index') }}">Duomenų Bazė</a></li>
             <li><a href="{{ url_for('logout') }}">Atsijungti</a></li>
           </ul>
         </div>

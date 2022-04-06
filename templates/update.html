@@ -17,13 +17,13 @@ Dashboard
         {% for each in categories %}
         <li><a href="{{ url_for('survey',category=each.category) }}">{{each.category}}</a></li>
         {% endfor %}
-        <li><a href="{{ url_for('index') }}">Klausimų bazė</a></li>
+        <li><a href="{{ url_for('index') }}">Duomenų Bazė</a></li>
         <li><a href="{{ url_for('logout') }}">Atsijungti</a></li>
       </ul>
     </div>
   </div>
 </nav>
-  <h2 class="sub-header">Klausimų bazė</h2>
+  <h2 class="sub-header">Duomenų Bazė</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
