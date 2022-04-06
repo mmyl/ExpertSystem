@@ -2,7 +2,7 @@
 
 # TODO
 - Pyke integration
-- Admin role and view
+<!-- Removed! Admin role and view-->
 <!-- - Link without login -->
 <!-- - Mandatory fields for input -->
 <!-- - Link to Edit page -->
@@ -75,8 +75,6 @@ Do you have cyber security or liability insurance?
 
 # Reference
 https://www.youtube.com/watch?v=Z1RJmh_OqeA
-
-![image](https://user-images.githubusercontent.com/80095026/152882518-35e6f1b5-dca4-4839-871d-4294110dd183.png)
 
 https://flask.palletsprojects.com/en/2.0.x/
 
