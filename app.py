@@ -139,11 +139,6 @@ def survey():
         return redirect(url_for('.results', sum=sum, total=total))
     else:
         selected_category = request.args.get('category')
-        # new_question_id = new_category[0:4]
-        # row_to_delete = Question.query.get_or_404(id)
-        # print(Question.query(max(Question.id)))
-        # print(db.session.query(Question.id).order_by(Question.id.desc()).first())
-
         rows = Question.query.filter(Question.category==selected_category)
         categories = Categories.query.all()
         return render_template('survey.html', rows=rows, categories=categories)

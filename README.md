@@ -88,3 +88,7 @@ Phishing
 ![image](https://user-images.githubusercontent.com/80095026/160441412-597da583-079d-49ff-b526-670416b57a52.png)
 
 
+
+## Self assesment
+https://ico.org.uk/for-organisations/sme-web-hub/checklists/data-protection-self-assessment/controllers-checklist/
+
