@@ -38,6 +38,11 @@ class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(200), nullable=False)
+
+class Knowledge(db.Model):
+    knowledge_id = db.Column(db.Integer, primary_key=True)
+    facts = db.Column(db.String(25), nullable=False)
+    risk_description = db.Column(db.String(300), nullable=False)
     
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
