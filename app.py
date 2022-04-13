@@ -176,8 +176,12 @@ def survey():
         answers = list(powerset(answers))
         print("All answer combinations")
         print(answers)
-        # Join list items to strings and remove empty list items
+        # Join list items to strings and remove empty list items.
         answers = [",".join(i) for i in answers if i]
+        # Sorting same way as new facts
+        answers = [",".join(sorted(i.split(","))) for i in answers ]
+        print("Answers as strings")
+        print(answers)
         high_risk = []
         for each in answers:
             query_risk = Facts.query.filter(Facts.facts==each)
@@ -225,6 +229,30 @@ def results(sum):
 @login_required
 def delete(id):
     row_to_delete = Question.query.get_or_404(id)
+
+    try:
+        db.session.delete(row_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that row'
+
+@app.route('/delete_fact/<int:fact_id>')
+@login_required
+def delete_fact(fact_id):
+    row_to_delete = Facts.query.get_or_404(fact_id)
+
+    try:
+        db.session.delete(row_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that row'
+
+@app.route('/delete_category/<int:id>')
+@login_required
+def delete_category(id):
+    row_to_delete = Categories.query.get_or_404(id)
 
     try:
         db.session.delete(row_to_delete)

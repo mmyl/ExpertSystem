@@ -89,6 +89,9 @@ Dashboard
                 <tr>
                     <td>{{ each.facts }}</td>
                     <td>{{ each.risk_description }}</td>
+                    <td>
+                      <a href="/delete_fact/{{each.fact_id}}">Ištrinti</a>
+                    </td>
                     {% endfor %}
                 <tr>            
                     <div class="form">
@@ -115,6 +118,9 @@ Dashboard
                 <tr>
                     <td>{{ each.category }}</td>
                     <td>{{ each.description }}</td>
+                    <td>
+                      <a href="/delete_category/{{each.id}}">Ištrinti</a>
+                    </td>
                     {% endfor %}
                 </tr>
                 <tr>            
