@@ -40,7 +40,7 @@ class Categories(db.Model):
 
 class Facts(db.Model):
     fact_id = db.Column(db.Integer, primary_key=True)
-    facts = db.Column(db.String(25), nullable=False)
+    facts = db.Column(db.String(50), nullable=False)
     risk_description = db.Column(db.String(300), nullable=False)
     
 class User(UserMixin, db.Model):
@@ -157,7 +157,7 @@ def survey():
         total = 0
         answers = []
         for key, value in request.form.items():
-            if value == "yes" :
+            if value == "no" :
                 row = Question.query.get_or_404(key)
                 sum = sum + ( row.likelihood * row.impact )
                 answers.append(row.question_id) 
@@ -207,7 +207,7 @@ def results(sum):
 
         # Create subplots: use 'domain' type for Pie subplot
         fig = make_subplots(rows=1, cols=1, specs=[[{'type':'domain'}]])
-        fig.add_trace(go.Pie(labels=labels, values=[int(category_total)-int(sum), sum], name="Slaptažodžiai"), 1, 1)
+        fig.add_trace(go.Pie(labels=labels, values=[sum, int(category_total)-int(sum)], name="Slaptažodžiai"), 1, 1)
 
         # Use `hole` to create a donut-like pie chart
         fig.update_traces(hole=.4, hoverinfo="label+percent+name")
