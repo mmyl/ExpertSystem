@@ -14,6 +14,7 @@ import json
 import pandas as pd
 import plotly
 import plotly.express as px
+from more_itertools import powerset
 
 
 app = Flask(__name__)
@@ -39,8 +40,8 @@ class Categories(db.Model):
     category = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(200), nullable=False)
 
-class Knowledge(db.Model):
-    knowledge_id = db.Column(db.Integer, primary_key=True)
+class Facts(db.Model):
+    fact_id = db.Column(db.Integer, primary_key=True)
     facts = db.Column(db.String(25), nullable=False)
     risk_description = db.Column(db.String(300), nullable=False)
     
@@ -106,42 +107,69 @@ def logout():
 @login_required
 def index():
     if request.method == 'POST':
-        new_question = request.form['question']
-        new_impact = request.form['impact']
-        new_likelihood = request.form['likelihood']
-        new_category = request.form['category']
-        # Get max id
-        max_id = db.session.query(Question.id).order_by(Question.id.desc()).first()
-        if max_id == None:
-            max_id = [0]
-        new_question_id = new_category[0:4] + str(max_id[0])
-        print(new_question_id)
-        update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood, category=new_category, question_id=new_question_id)
-
+        
+        # Adding new category
+        if "category_name" in request.form:
+            new_category = request.form['category_name']
+            new_description = request.form['description']
+            update = Categories(category=new_category, description=new_description)
+        
+        # Adding new fact
+        if "facts" in request.form:
+            # Removing spaces
+            new_fact = request.form['facts'].replace(" ", "")
+            print(new_fact)
+            delim = ","
+            # Sorting facts
+            new_fact_sorted = delim.join(sorted(new_fact.split(delim)))
+            print(new_fact_sorted)
+            new_risk_description = request.form['risk_description']
+            update = Facts(facts=new_fact_sorted, risk_description=new_risk_description)
+            
+        # Adding new question
+        if "question" in request.form:
+            new_question = request.form['question']
+            new_impact = request.form['impact']
+            new_likelihood = request.form['likelihood']
+            new_category = request.form['category']
+            # Get max id
+            max_id = db.session.query(Question.id).order_by(Question.id.desc()).first()
+            if max_id == None:
+                max_id = [0]
+            new_question_id = new_category[0:4] + str(max_id[0])
+            print(new_question_id)
+            update = Question(question=new_question, impact=new_impact, likelihood=new_likelihood, category=new_category, question_id=new_question_id)
         try:
             db.session.add(update)
             db.session.commit()
             return redirect('/')
         except:
             return 'There was an issue adding your row'
-
+    
     else:
         rows = Question.query.order_by(Question.date_created).all()
         categories = Categories.query.all()
-        return render_template('index.html', rows=rows, categories=categories)
+        facts = Facts.query.all()
+        return render_template('index.html', rows=rows, categories=categories, facts=facts)
 
 @app.route('/survey', methods=['POST', 'GET'])
 def survey():
     if request.method == 'POST':
         sum = 0
         total = 0
+        answers = []
         for key, value in request.form.items():
             if value == "yes" :
                 row = Question.query.get_or_404(key)
                 sum = sum + ( row.likelihood * row.impact )
+                answers.append(row.question_id) 
             row = Question.query.get_or_404(key)
             total = total + ( row.likelihood * row.impact )
-        return redirect(url_for('.results', sum=sum, total=total))
+        print(answers)
+        # Makes all possible combinations
+        answers = list(powerset(answers))
+        print(answers)
+        return redirect(url_for('.results', sum=sum, total=total, answers = answers))
     else:
         selected_category = request.args.get('category')
         rows = Question.query.filter(Question.category==selected_category)
@@ -154,6 +182,7 @@ def results(sum):
         # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
         
         category_total = request.args.get('total')
+        answers = request.args.get('answers')
         labels = ["Rizikos balai", "Surinkta"]
 
         # Create subplots: use 'domain' type for Pie subplot
@@ -170,7 +199,7 @@ def results(sum):
             annotations=[dict(text= sum + "/" + category_total, x=0.5, y=0.5, font_size=20, showarrow=False)])
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         categories = Categories.query.all()
-        return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories)
+        return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories, answers=answers)
         
 @app.route('/delete/<int:id>')
 @login_required

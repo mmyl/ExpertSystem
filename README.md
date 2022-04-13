@@ -1,7 +1,8 @@
 ﻿# Expert System for IT security risk analysis
 
 # TODO
-- Pyke integration
+	- Combine various scenarious
+<!-- - Pyke integration -->
 <!-- Removed! Admin role and view-->
 <!-- - Link without login -->
 <!-- - Mandatory fields for input -->
@@ -90,3 +91,5 @@ Phishing
 ## Self assesment
 https://ico.org.uk/for-organisations/sme-web-hub/checklists/data-protection-self-assessment/controllers-checklist/
 
+# parsing POST
+https://stackoverflow.com/questions/43333440/different-types-of-post-requests-in-the-same-route-in-flask

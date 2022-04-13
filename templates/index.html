@@ -75,6 +75,32 @@ Dashboard
           </table>
           </div>            
             </tr>
+            <h3 class="sub-header">Faktai</h3>
+            <div class="table-responsive">
+              <table class="table table-striped">              
+              <thead>
+                <tr>
+                  <th>Sąlygos</th>
+                  <th>Rizikos aprašymas</th>                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for each in facts %}
+                <tr>
+                    <td>{{ each.facts }}</td>
+                    <td>{{ each.risk_description }}</td>
+                    {% endfor %}
+                <tr>            
+                    <div class="form">
+                          <form action="/" method="POST">
+                              <td><input type="text" name="facts" id="facts" required></td>
+                              <td><input type="text" name="risk_description" id="risk_description" required></td>
+                              <td><input type="submit" value="Pridėti faktus"></td>
+                          </form>
+                    </div>
+                </tr>
+              </tbody>    
+            </table>
             <h3 class="sub-header">Kategorijos</h3>
             <div class="table-responsive">
               <table class="table table-striped">              
@@ -90,6 +116,16 @@ Dashboard
                     <td>{{ each.category }}</td>
                     <td>{{ each.description }}</td>
                     {% endfor %}
+                </tr>
+                <tr>            
+                  <div class="form">
+                        <form action="/" method="POST">
+                            <td><input type="text" name="category_name" id="category" required></td>
+                            <td><input type="text" name="description" id="description" required></td>
+                            <td><input type="submit" value="Pridėti kategoriją"></td>
+                        </form>
+                  </div>
+              </tr>
               </tbody>    
             </table>    
 {% endblock %}
