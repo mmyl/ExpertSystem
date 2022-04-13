@@ -14,8 +14,6 @@ import json
 import pandas as pd
 import plotly
 import plotly.express as px
-from more_itertools import powerset
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
@@ -166,10 +164,26 @@ def survey():
             row = Question.query.get_or_404(key)
             total = total + ( row.likelihood * row.impact )
         print(answers)
+        
+        # Define powerset function    
+        def powerset(s):
+            x = len(s)
+            masks = [1 << i for i in range(x)]
+            for i in range(1 << x):
+                yield [ss for mask, ss in zip(masks, s) if i & mask]
+        
         # Makes all possible combinations
         answers = list(powerset(answers))
+        # Join list items to strings and remove empty list items
+        answers = [",".join(i) for i in answers if i]
         print(answers)
-        return redirect(url_for('.results', sum=sum, total=total, answers = answers))
+        matched_risk = Facts.query.filter(Facts.facts=='BDAR11,BDAR12,BDAR13')
+        print(type(matched_risk))
+        
+        # for each in answers:
+            # matched_risk = Facts.query.get_or_404(each)
+          
+        return redirect(url_for('.results', sum=sum, total=total, answers = matched_risk))
     else:
         selected_category = request.args.get('category')
         rows = Question.query.filter(Question.category==selected_category)

@@ -55,7 +55,7 @@ Set environment variables
  $env:FLASK_APP="app"
  $env:FLASK_ENV="development"
 
-# Questions
+<!-- # Questions
 Does Every Employee Have a Strong Password?
 Are Your Employees Required to Change Their Passwords Regularly?
 When Possible, Do You Use Two-Factor Authentication?
@@ -71,7 +71,7 @@ Do you have (x) security measure in place?
 Do you have any physical data protection measures in place?
 Have you had any breaches or security issues in the past?
 Do you have a disaster recovery or business continuity plan?
-Do you have cyber security or liability insurance?
+Do you have cyber security or liability insurance? -->
 
 
 # Reference
