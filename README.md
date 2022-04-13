@@ -1,7 +1,7 @@
 ﻿# Expert System for IT security risk analysis
 
 # TODO
-	- Combine various scenarious
+<!-- - Combine various scenarious -->
 <!-- - Pyke integration -->
 <!-- Removed! Admin role and view-->
 <!-- - Link without login -->
@@ -26,7 +26,8 @@
 virtualenv --python='C:\Users\AdminUser\AppData\Local\Programs\Python\Python38\python.exe' virenv
 .\virenv\Scripts\activate
  pip install -r requirements.txt
-
+#### To activate vir environment
+.\virenv\scripts\Activate
  *deactivate* to deactive virtual env
 
  set FLASK_ENV=development
@@ -55,6 +56,13 @@ Set environment variables
  $env:FLASK_APP="app"
  $env:FLASK_ENV="development"
 
+## Populating database
+
+In order to populate database you should follow rules in these tables.
+![image](https://user-images.githubusercontent.com/80095026/160441105-e2632e69-e64b-48c4-9841-014b46acb3ba.png)
+![image](https://user-images.githubusercontent.com/80095026/160442547-3b1cf7c8-7253-4565-9366-5497ee770b42.png)
+![image](https://user-images.githubusercontent.com/80095026/160441412-597da583-079d-49ff-b526-670416b57a52.png)
+
 <!-- # Questions
 Does Every Employee Have a Strong Password?
 Are Your Employees Required to Change Their Passwords Regularly?
@@ -81,11 +89,7 @@ Ar įmonė naudoja automatines saugos priemones, ugniasienes, skenerius, antivir
 
 Parengiamos išvados, pamatuojama rizika... 
 
- 
-
  -->
-
-
 # Reference
 https://www.youtube.com/watch?v=Z1RJmh_OqeA
 
@@ -93,9 +97,7 @@ https://flask.palletsprojects.com/en/2.0.x/
 
 http://pyke.sourceforge.net/logic_programming/index.html
 
-![image](https://user-images.githubusercontent.com/80095026/160441105-e2632e69-e64b-48c4-9841-014b46acb3ba.png)
-![image](https://user-images.githubusercontent.com/80095026/160442547-3b1cf7c8-7253-4565-9366-5497ee770b42.png)
-![image](https://user-images.githubusercontent.com/80095026/160441412-597da583-079d-49ff-b526-670416b57a52.png)
+
 
 
 
