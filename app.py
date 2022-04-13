@@ -216,7 +216,7 @@ def results(sum):
         fig.update_layout(
             title_text="Rizikos vertinimo atvaizdavimas",
             # Add annotations in the center of the donut pies.
-            annotations=[dict(text= sum + "/" + category_total, x=0.5, y=0.5, font_size=20, showarrow=False)])
+            annotations=[dict(text= str(int(category_total)-int(sum)) + "/" + category_total, x=0.5, y=0.5, font_size=20, showarrow=False)])
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         categories = Categories.query.all()
         return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories, high_risk=high_risk)
