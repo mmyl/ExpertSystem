@@ -30,15 +30,16 @@ Rezultatai
                   var graphs = {{graphJSON | safe}};
                   Plotly.plot('chart',graphs,{});
                 </script>
-                
+                {% for each in high_risk %}
                 <h3 class="sub-header">Identifikuota aukšta rizika</h3>
                 <div class="table-responsive">
                   <table class="table table-striped">              
                   <tbody>
                     <tr>
-                        <td>{{ answers }}</td>
+                        <td>{{ each }}</td>
                     </tr>
                   </tbody>    
                 </table>    
+                {% endfor %}
                 
 {% endblock %}

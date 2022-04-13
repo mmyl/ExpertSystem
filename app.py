@@ -174,23 +174,22 @@ def survey():
         
         # Makes all possible combinations
         answers = list(powerset(answers))
+        print("All answer combinations")
+        print(answers)
         # Join list items to strings and remove empty list items
         answers = [",".join(i) for i in answers if i]
-        print(answers)
-        matched_risk = Facts.query.filter(Facts.facts=='BDAR11,BDAR12,BDAR13')
-        results = matched_risk.all()
-        print(type(matched_risk))
-        print (matched_risk.all())
-        print(matched_risk.all()[0])
-        print(type(matched_risk.all()[0]))
-        print(dir(matched_risk.all()[0]))
-        print(results[0].fact_id)
-        print(results[0].facts)
-        print(results[0].risk_description)
-        # for each in answers:
-            # matched_risk = Facts.query.get_or_404(each)
-          
-        return redirect(url_for('.results', sum=sum, total=total, answers = matched_risk))
+        high_risk = []
+        for each in answers:
+            query_risk = Facts.query.filter(Facts.facts==each)
+            results = query_risk.all()
+            if results:
+                high_risk.append(results[0].risk_description)
+                print("High risk was found")
+                print(results[0].risk_description)
+        
+        print("All high risks")     
+        print((high_risk))
+        return redirect(url_for('.results', sum=sum, total=total, high_risk = list(high_risk)))
     else:
         selected_category = request.args.get('category')
         rows = Question.query.filter(Question.category==selected_category)
@@ -203,7 +202,7 @@ def results(sum):
         # https://towardsdatascience.com/web-visualization-with-plotly-and-flask-3660abf9c946
         
         category_total = request.args.get('total')
-        answers = request.args.get('answers')
+        high_risk = request.args.getlist('high_risk')
         labels = ["Rizikos balai", "Surinkta"]
 
         # Create subplots: use 'domain' type for Pie subplot
@@ -220,7 +219,7 @@ def results(sum):
             annotations=[dict(text= sum + "/" + category_total, x=0.5, y=0.5, font_size=20, showarrow=False)])
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         categories = Categories.query.all()
-        return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories, answers=answers)
+        return render_template('results.html', sum=sum, graphJSON=graphJSON, categories=categories, high_risk=high_risk)
         
 @app.route('/delete/<int:id>')
 @login_required
