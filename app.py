@@ -178,8 +178,15 @@ def survey():
         answers = [",".join(i) for i in answers if i]
         print(answers)
         matched_risk = Facts.query.filter(Facts.facts=='BDAR11,BDAR12,BDAR13')
+        results = matched_risk.all()
         print(type(matched_risk))
-        
+        print (matched_risk.all())
+        print(matched_risk.all()[0])
+        print(type(matched_risk.all()[0]))
+        print(dir(matched_risk.all()[0]))
+        print(results[0].fact_id)
+        print(results[0].facts)
+        print(results[0].risk_description)
         # for each in answers:
             # matched_risk = Facts.query.get_or_404(each)
           
