@@ -71,7 +71,19 @@ Do you have (x) security measure in place?
 Do you have any physical data protection measures in place?
 Have you had any breaches or security issues in the past?
 Do you have a disaster recovery or business continuity plan?
-Do you have cyber security or liability insurance? -->
+Do you have cyber security or liability insurance?
+
+ 
+
+Ar įmonė tvarko duomenis? Ar duomenis tvarko pagal BDAR? Ar turi klientų duomenų? Ar yra dokumentuotas duomenų tvarkymo procesas? Ar yra šifruojami duomenys?  
+
+Ar įmonė naudoja automatines saugos priemones, ugniasienes, skenerius, antivirusines ir t.t. Ar slaptažodžių politika yra. Ar apmokomi darbuotojai? Ar atliekamas saugos (išorinis) auditas? 
+
+Parengiamos išvados, pamatuojama rizika... 
+
+ 
+
+ -->
 
 
 # Reference
@@ -81,7 +93,6 @@ https://flask.palletsprojects.com/en/2.0.x/
 
 http://pyke.sourceforge.net/logic_programming/index.html
 
-Phishing
 ![image](https://user-images.githubusercontent.com/80095026/160441105-e2632e69-e64b-48c4-9841-014b46acb3ba.png)
 ![image](https://user-images.githubusercontent.com/80095026/160442547-3b1cf7c8-7253-4565-9366-5497ee770b42.png)
 ![image](https://user-images.githubusercontent.com/80095026/160441412-597da583-079d-49ff-b526-670416b57a52.png)
