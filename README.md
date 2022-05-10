@@ -58,6 +58,21 @@ Set environment variables
 
 ### Run across network
 	flask run --host=0.0.0.0
+	
+## Questions page sample
+![image](https://user-images.githubusercontent.com/80095026/167710521-336d3f07-9927-4cb6-bf78-50b1182e8e59.png)
+
+## Results page sample
+![image](https://user-images.githubusercontent.com/80095026/167710680-89ca7532-075a-4f1f-81f8-81e8f0054dad.png)
+
+## Login page
+![image](https://user-images.githubusercontent.com/80095026/167710732-fd2e99ce-8f8e-4c4f-b34f-fd6c2c81ace4.png)
+
+## Database editor page
+Single table preview
+![image](https://user-images.githubusercontent.com/80095026/167710839-70d733ce-5769-4522-ac11-44c9dee60249.png)
+
+
 ## Populating database
 
 In order to populate database you should follow rules in these tables.
