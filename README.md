@@ -56,6 +56,8 @@ Set environment variables
  $env:FLASK_APP="app"
  $env:FLASK_ENV="development"
 
+### Run across network
+	flask run --host=0.0.0.0
 ## Populating database
 
 In order to populate database you should follow rules in these tables.
@@ -81,14 +83,11 @@ Have you had any breaches or security issues in the past?
 Do you have a disaster recovery or business continuity plan?
 Do you have cyber security or liability insurance?
 
- 
-
 Ar įmonė tvarko duomenis? Ar duomenis tvarko pagal BDAR? Ar turi klientų duomenų? Ar yra dokumentuotas duomenų tvarkymo procesas? Ar yra šifruojami duomenys?  
 
 Ar įmonė naudoja automatines saugos priemones, ugniasienes, skenerius, antivirusines ir t.t. Ar slaptažodžių politika yra. Ar apmokomi darbuotojai? Ar atliekamas saugos (išorinis) auditas? 
 
 Parengiamos išvados, pamatuojama rizika... 
-
  -->
 # Reference
 https://www.youtube.com/watch?v=Z1RJmh_OqeA
@@ -96,10 +95,6 @@ https://www.youtube.com/watch?v=Z1RJmh_OqeA
 https://flask.palletsprojects.com/en/2.0.x/
 
 http://pyke.sourceforge.net/logic_programming/index.html
-
-
-
-
 
 ## Self assesment
 https://ico.org.uk/for-organisations/sme-web-hub/checklists/data-protection-self-assessment/controllers-checklist/
